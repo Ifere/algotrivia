@@ -12,7 +12,7 @@
 # Node artifact files
 node_modules/
 dist/
-
+algotrivia
 # Compiled Java class files
 *.class
 # Compiled Python bytecode
