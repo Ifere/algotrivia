@@ -2,18 +2,19 @@ package main
 
 import (
 	"fmt"
-	"github.com/ifere/algotrivia/config/db"
-	"github.com/ifere/algotrivia/config/middleware"
 	"log"
 	"net/http"
 	"os"
-	"github.com/joho/godotenv"
+
 	"github.com/gorilla/mux"
+	"github.com/ifere/algotrivia/config/db"
+	"github.com/ifere/algotrivia/config/middleware"
+	"github.com/ifere/algotrivia/src/api"
+	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 	"github.com/urfave/negroni"
 )
 
-// registers each service and call the services start method
 // each service requires a connection to mongodb
 // each start method requires the instance of the app handler
 // TODO refactor register service to accept various db connection tyes
@@ -58,6 +59,7 @@ func main() {
 
 	n := registerMiddleWares(router)
 	registerServices(router, db)
+	api.RegisterRoutes(router)
 
 	//setupBugSnag()
 
