@@ -43,12 +43,12 @@ func registerMiddleWares(router *mux.Router) *negroni.Negroni {
 }
 
 func main() {
-	e := godotenv.Load()
-	if e != nil {
-		fmt.Println("Could not load Env Variables")
-		fmt.Println(e)
+	// e := godotenv.Load()
+	// if e != nil {
+	// 	fmt.Println("Could not load Env Variables")
+	// 	fmt.Println(e)
 
-	}
+	// }
 	port := os.Getenv("PORT")
     if port == "" {
         port = "8080" // Default port if not set

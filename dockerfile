@@ -24,8 +24,6 @@ RUN apk add --no-cache file
 RUN ls -la /root/algotrivia
 RUN file /root/algotrivia
 
-RUN echo $MONGO_DEV_URL
-
 EXPOSE 8080
 
 CMD ["./algotrivia"]
