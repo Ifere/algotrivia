@@ -10,7 +10,7 @@ import (
 	"github.com/ifere/algotrivia/config/db"
 	"github.com/ifere/algotrivia/config/middleware"
 	"github.com/ifere/algotrivia/src/api"
-	"github.com/joho/godotenv"
+	// "github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 	"github.com/urfave/negroni"
 )
