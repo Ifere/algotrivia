@@ -1,5 +1,3 @@
-<<<<<<< HEAD:dockerfile
-=======
 # Stage 1: Build the binary
 FROM golang:1.23.2-alpine AS builder
 WORKDIR /app
@@ -29,4 +27,3 @@ RUN file /root/algotrivia
 EXPOSE 8080
 
 CMD ["./algotrivia"]
->>>>>>> 1e73bd025304a4bd67ec2a46104e04b1141eaa36:Dockerfile
