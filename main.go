@@ -45,9 +45,14 @@ func registerMiddleWares(router *mux.Router) *negroni.Negroni {
 func main() {
 	e := godotenv.Load()
 	if e != nil {
+		fmt.Println("Could not load Env Variables")
 		fmt.Println(e)
+
 	}
 	port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080" // Default port if not set
+    }
 	fmt.Println("port",port)
 	router := mux.NewRouter()
 	var db dbs.MongoDB
@@ -55,6 +60,7 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
+	fmt.Println("MONGO_DEV_URL:", os.Getenv("MONGO_DEV_URL"))
 	fmt.Println("db connected")
 
 	n := registerMiddleWares(router)

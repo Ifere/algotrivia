@@ -1,32 +1,31 @@
-# Use the official Golang image as a build stage
-FROM golang:1.23.2 AS builder
-
-# Set the Current Working Directory inside the container
+# Stage 1: Build the binary
+FROM golang:1.23.2-alpine AS builder
 WORKDIR /app
 
-# Copy go.mod and go.sum files
 COPY go.mod go.sum ./
-
-# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
 RUN go mod download
 
-# Copy the source code into the container
 COPY . .
 
-# Build the Go app
-RUN go build -o algotrivia main.go
+RUN go build -o algotrivia
 
-# Start a new stage from scratch
+
+# Stage 2: Run the binary in Alpine
 FROM alpine:latest
-
-# Set the Current Working Directory inside the container
 WORKDIR /root/
 
-# Copy the Pre-built binary file from the previous stage
 COPY --from=builder /app/algotrivia .
+RUN chmod +x /root/algotrivia
 
-# Expose port 8080 to the outside world
+# Install the file utility for debugging
+RUN apk add --no-cache file
+
+# Debug: Check if the binary is there and executable
+RUN ls -la /root/algotrivia
+RUN file /root/algotrivia
+
+RUN echo $MONGO_DEV_URL
+
 EXPOSE 8080
 
-# Command to run the executable
 CMD ["./algotrivia"]

@@ -2,8 +2,8 @@ package dbs
 
 import (
 	"context"
-	"fmt"
-	"github.com/joho/godotenv"
+	// "fmt"
+	// "github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -73,27 +73,31 @@ func (db *MongoDB) ConnectTest() error {
 func (db *MongoDB) TestTearDown(coll string) error {
 	c := db.Client.Database(dbName).Collection(coll)
 
-	return c.Drop(nil)
+	return c.Drop(context.TODO())
 }
 
 func (db *MongoDB) GetDbUrl() string {
-	e := godotenv.Load()
+	// e := godotenv.Load()
 
-	if e != nil {
-		fmt.Println(e)
-	}
-	env := os.Getenv("ENV")
-	var dbUrl string
+	// if e != nil {
+	// 	fmt.Println(e)
+	// }
+	// var dbUrl string
+	dbUrl := os.Getenv("MONGO_DEV_URL")
 
-	switch env {
-	case "dev":
-		dbUrl = os.Getenv("MONGO_DEV_URL")
-	case "prod":
-		dbUrl = os.Getenv("MONGO_PROD_URL")
-	default:
-		dbUrl = os.Getenv("MONGO_LOCAL_URL")
-	}
 	return dbUrl
+
+	// env := os.Getenv("ENV")
+
+	// switch env {
+	// case "dev":
+	// 	dbUrl = os.Getenv("MONGO_DEV_URL")
+	// case "prod":
+	// 	dbUrl = os.Getenv("MONGO_PROD_URL")
+	// default:
+	// 	dbUrl = os.Getenv("MONGO_LOCAL_URL")
+	// }
+	// return dbUrl
 }
 
 
